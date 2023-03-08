@@ -5,10 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.weatherhub.R
 import com.example.weatherhub.databinding.FragmentMainBinding
 import com.example.weatherhub.viewmodel.AppState
 import com.example.weatherhub.viewmodel.MainViewModel
@@ -16,13 +14,14 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
 
-    lateinit var binding: FragmentMainBinding
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -72,6 +71,6 @@ class MainFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        //binding = null
+        _binding = null
     }
 }
