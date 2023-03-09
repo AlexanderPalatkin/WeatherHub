@@ -1,11 +1,15 @@
 package com.example.weatherhub.repository
 
-class RepositoryImpl: Repository {
+class RepositoryImpl : Repository {
     override fun getWeatherFromServer(): Weather {
         return Weather()
     }
 
-    override fun getWeatherFromLocalStorage(): Weather {
-        return Weather()
+    override fun getWorldWeatherFromLocalStorage(): List<Weather> {
+        return getWorldCities()
+    }
+
+    override fun getRusWeatherFromLocalStorage(): List<Weather> {
+        return getRussianCities()
     }
 }
