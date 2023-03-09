@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weatherhub.repository.RepositoryImpl
-import java.io.IOError
 import java.lang.Thread.sleep
 
 class MainViewModel(
@@ -18,16 +17,19 @@ class MainViewModel(
         return liveData
     }
 
-    fun getWeather() {
+    fun getWeatherRussian() = getWeather(true)
+    fun getWeatherWorld() = getWeather(false)
 
+    private fun getWeather(isRussian: Boolean) {
         liveData.postValue(AppState.Loading)
         Thread {
             sleep(2000L)
-
-            liveData.postValue(AppState.Success(repository.getWeatherFromServer()))
-
-//                liveData.postValue(AppState.Error(IllegalAccessError()))
-
+            if ((0..10).random() > 5) {
+                val answer =
+                    if (!isRussian) repository.getWorldWeatherFromLocalStorage() else repository.getRussianWeatherFromLocalStorage()
+                liveData.postValue(AppState.Success(answer))
+            } else
+                liveData.postValue(AppState.Error(IllegalAccessError()))
         }.start()
     }
 }
