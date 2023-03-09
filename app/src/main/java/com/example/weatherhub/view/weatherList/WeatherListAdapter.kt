@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherhub.databinding.FragmentWeatherListRecyclerItemBinding
 import com.example.weatherhub.repository.Weather
 
-class WeatherListAdapter(private var data: List<Weather>): RecyclerView.Adapter<WeatherListAdapter.CityHolder>() {
+class WeatherListAdapter(private var data: List<Weather> = listOf()): RecyclerView.Adapter<WeatherListAdapter.CityHolder>() {
 
     fun setData(newData: List<Weather>){
         this.data = newData
