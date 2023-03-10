@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.weatherhub.databinding.FragmentDetailsBinding
+import com.example.weatherhub.repository.Weather
+import com.example.weatherhub.utils.KEY_BUNDLE_WEATHER
+import com.google.android.material.snackbar.Snackbar
 
 class DetailsFragment : Fragment() {
 
@@ -22,36 +25,30 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val weather: Weather = requireArguments().getParcelable(KEY_BUNDLE_WEATHER)!!
+        renderData(weather)
     }
 
-//    private fun renderData(data: AppState) {
-//        when (data) {
-//            is AppState.Error -> {
-//                binding.loadingLayout.visibility = View.GONE
-//                Snackbar.make(binding.mainView, "Не получилось", Snackbar.LENGTH_SHORT).show()
-//            }
-//            is AppState.Loading -> {
-//                binding.loadingLayout.visibility = View.VISIBLE
-//            }
-//            is AppState.Success -> {
-//                binding.loadingLayout.visibility = View.GONE
-//                binding.cityName.text = data.weatherData.city.name
-//                binding.temperatureValue.text = data.weatherData.temperature.toString()
-//                binding.feelsLikeValue.text = data.weatherData.feelsLike.toString()
-//                binding.cityCoordinates.text = buildString {
-//        append(data.weatherData.city.lat)
-//        append(" ")
-//        append(data.weatherData.city.lon)
-//    }
-//                Snackbar.make(binding.mainView, "Получилось", Snackbar.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
+    private fun renderData(weather: Weather) {
+        binding.loadingLayout.visibility = View.GONE
+        binding.cityName.text = weather.city.name
+        binding.temperatureValue.text = weather.temperature.toString()
+        binding.feelsLikeValue.text = weather.feelsLike.toString()
+        binding.cityCoordinates.text = buildString {
+            append(weather.city.lat)
+            append(" ")
+            append(weather.city.lon)
+        }
+        Snackbar.make(binding.mainView, "Получилось", Snackbar.LENGTH_SHORT).show()
+    }
 
     companion object {
         @JvmStatic
-        fun newInstance() = DetailsFragment()
+        fun newInstance(bundle: Bundle): DetailsFragment {
+            val fragment = DetailsFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
     override fun onDestroy() {

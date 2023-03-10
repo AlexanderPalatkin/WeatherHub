@@ -10,16 +10,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherhub.R
 import com.example.weatherhub.databinding.FragmentWeatherListBinding
+import com.example.weatherhub.repository.Weather
+import com.example.weatherhub.utils.KEY_BUNDLE_WEATHER
+import com.example.weatherhub.view.details.DetailsFragment
 import com.example.weatherhub.viewmodel.AppState
 import com.example.weatherhub.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class WeatherListFragment : Fragment() {
+class WeatherListFragment : Fragment(), OnItemListClickListener {
 
     private var _binding: FragmentWeatherListBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter = WeatherListAdapter()
+    private val adapter = WeatherListAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +37,7 @@ class WeatherListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerView.adapter = adapter
+        initRecyclerView()
         val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 //        val observer = Observer<Any>{ renderData(it)}
 
@@ -70,17 +73,6 @@ class WeatherListFragment : Fragment() {
             is AppState.Success -> {
                 binding.loadingLayout.visibility = View.GONE
                 adapter.setData(data.weatherList)
-
-
-//                binding.cityName.text = data.weatherData.city.name
-//                binding.temperatureValue.text = data.weatherData.temperature.toString()
-//                binding.feelsLikeValue.text = data.weatherData.feelsLike.toString()
-//                binding.cityCoordinates.text = buildString {
-//        append(data.weatherData.city.lat)
-//        append(" ")
-//        append(data.weatherData.city.lon)
-//    }
-//                Snackbar.make(binding.mainView, "Получилось", Snackbar.LENGTH_SHORT).show()
             }
         }
     }
@@ -93,5 +85,16 @@ class WeatherListFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onItemClick(weather: Weather) {
+        val bundle = Bundle()
+        bundle.putParcelable(KEY_BUNDLE_WEATHER, weather)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.container, DetailsFragment.newInstance(bundle)).addToBackStack("").commit()
+    }
+
+    private fun initRecyclerView() {
+        binding.recyclerView.adapter = adapter
     }
 }
