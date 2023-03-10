@@ -17,8 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         app:tint="@null"
-        app:maxImageSize="56dp"
-        android:layout_margin="20dp"
+        app:maxImageSize="@dimen/float_button_max_img_size"
+        android:layout_margin="@dimen/float_button_layout_margin"
         android:src="@drawable/ic_russia"/>
 
     <FrameLayout

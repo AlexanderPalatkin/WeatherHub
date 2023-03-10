@@ -12,18 +12,14 @@ class MainViewModel(
 ) :
 
     ViewModel() {
-
-    fun getData(): LiveData<AppState> {
-        return liveData
-    }
-
+    fun getData(): LiveData<AppState> = liveData
     fun getWeatherRussian() = getWeather(true)
     fun getWeatherWorld() = getWeather(false)
 
     private fun getWeather(isRussian: Boolean) = Thread {
         liveData.postValue(AppState.Loading)
         sleep(2000L)
-        if ((0..10).random() > 2) {
+        if ((0..10).random() > 3) {
             val answer =
                 if (!isRussian) repository.getWorldWeatherFromLocalStorage() else repository.getRussianWeatherFromLocalStorage()
             liveData.postValue(AppState.Success(answer))

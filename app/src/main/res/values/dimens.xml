@@ -4,4 +4,11 @@
     <dimen name="margin_15_dp">15dp</dimen>
     <dimen name="temperature_value_text_size">40sp</dimen>
     <dimen name="feels_like_text_size">30sp</dimen>
+    <dimen name="city_name_text_size">35sp</dimen>
+    <dimen name="city_coordinates_margin_top">5dp</dimen>
+    <dimen name="float_button_max_img_size">56dp</dimen>
+    <dimen name="float_button_layout_margin">20dp</dimen>
+    <dimen name="fragment_rw_layout_margin">10dp</dimen>
+    <dimen name="rw_city_name_text_size">25sp</dimen>
+    <dimen name="rw_view_line_height">1dp</dimen>
 </resources>

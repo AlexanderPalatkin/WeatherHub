@@ -38,8 +38,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
-        val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-//        val observer = Observer<Any>{ renderData(it)}
+        val viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         val observer = object : Observer<AppState> {
             override fun onChanged(data: AppState) {
