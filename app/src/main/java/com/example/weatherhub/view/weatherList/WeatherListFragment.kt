@@ -40,21 +40,27 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         initRecyclerView()
         val viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        val observer = object : Observer<AppState> {
-            override fun onChanged(data: AppState) {
-                renderData(data)
-            }
-        }
+        val observer = Observer<AppState> { data -> renderData(data) }
 
         viewModel.getData().observe(viewLifecycleOwner, observer)
         binding.floatingActionButton.setOnClickListener {
             isRussian = !isRussian
-            if (isRussian){
+            if (isRussian) {
                 viewModel.getWeatherRussian()
-                binding.floatingActionButton.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_russia))
+                binding.floatingActionButton.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_russia
+                    )
+                )
             } else {
                 viewModel.getWeatherWorld()
-                binding.floatingActionButton.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_earth))
+                binding.floatingActionButton.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_earth
+                    )
+                )
             }
         }
         viewModel.getWeatherRussian()
@@ -87,10 +93,10 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
     }
 
     override fun onItemClick(weather: Weather) {
-        val bundle = Bundle()
-        bundle.putParcelable(KEY_BUNDLE_WEATHER, weather)
         requireActivity().supportFragmentManager.beginTransaction()
-            .add(R.id.container, DetailsFragment.newInstance(bundle)).addToBackStack("").commit()
+            .add(R.id.container, DetailsFragment.newInstance(Bundle().apply {
+                putParcelable(KEY_BUNDLE_WEATHER, weather)
+            })).addToBackStack("").commit()
     }
 
     private fun initRecyclerView() {
