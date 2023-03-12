@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.weatherhub.R
 import com.example.weatherhub.databinding.FragmentDetailsBinding
 import com.example.weatherhub.repository.Weather
 import com.example.weatherhub.utils.KEY_BUNDLE_WEATHER
@@ -42,9 +43,8 @@ class DetailsFragment : Fragment() {
                 append(" ")
                 append(weather.city.lon)
             }
-            Snackbar.make(mainView, "Получилось", Snackbar.LENGTH_SHORT).show()
+            mainView.showSnackBar(getString(R.string.its_work), Snackbar.LENGTH_SHORT)
         }
-
     }
 
     companion object {
@@ -59,5 +59,12 @@ class DetailsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun View.showSnackBar(
+        text: String,
+        length: Int = Snackbar.LENGTH_INDEFINITE
+    ) {
+        Snackbar.make(this, text, length).show()
     }
 }
