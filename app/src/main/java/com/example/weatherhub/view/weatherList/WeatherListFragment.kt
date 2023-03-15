@@ -24,17 +24,18 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
 
     private val adapter = WeatherListAdapter(this)
 
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this)[MainViewModel::class.java]
+    }
+
+    private var isRussian: Boolean = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWeatherListBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    private var isRussian: Boolean = true
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -88,16 +89,6 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = WeatherListFragment()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
     override fun onItemClick(weather: Weather) {
         requireActivity().supportFragmentManager.beginTransaction()
             .add(R.id.container, DetailsFragment.newInstance(Bundle().apply {
@@ -107,5 +98,15 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
 
     private fun initRecyclerView() {
         binding.recyclerView.adapter = adapter
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = WeatherListFragment()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
