@@ -4,7 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import com.example.weatherhub.BuildConfig
-import com.google.android.material.snackbar.Snackbar
+import com.example.weatherhub.viewmodel.ResponseState
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import java.io.BufferedReader
@@ -12,7 +12,8 @@ import java.io.InputStreamReader
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
-class WeatherLoader(val onServerResponseListener: OnServerResponse) {
+class WeatherLoader(private val onServerResponseListener: OnServerResponse,
+                    private val onServerResponseState: OnServerResponseListener) {
     fun loadWeather(lat: Double, lon: Double) {
 
         Thread {
@@ -26,8 +27,22 @@ class WeatherLoader(val onServerResponseListener: OnServerResponse) {
                 }
             try {
                 val headers = urlConnection.headerFields
-                val responseCode = urlConnection.responseCode
                 val responseMessage = urlConnection.responseMessage
+                val responseCode = urlConnection.responseCode
+
+                val serverSide = 500
+                val clientSide = 400..499
+                val responseOk = 200..299
+
+                if (responseCode >= serverSide) {
+                    val errorServer = responseCode.toString()
+                    onServerResponseState.onResponseState(ResponseState.ErrorServer(errorServer))
+                } else if (responseCode in clientSide) {
+                    val errorClient = responseCode.toString()
+                    onServerResponseState.onResponseState(ResponseState.ErrorClient(errorClient))
+                } else if (responseCode in responseOk) {
+                    onServerResponseState.onResponseState(ResponseState.ResponseOk)
+                }
 
                 val buffer = BufferedReader(InputStreamReader(urlConnection.inputStream))
                 val weatherDTO: WeatherDTO = Gson().fromJson(buffer, WeatherDTO::class.java)
@@ -45,8 +60,6 @@ class WeatherLoader(val onServerResponseListener: OnServerResponse) {
             } finally {
                 urlConnection.disconnect()
             }
-
-
         }.start()
     }
 }

@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.weatherhub.R
 import com.example.weatherhub.databinding.FragmentDetailsBinding
-import com.example.weatherhub.repository.OnServerResponse
-import com.example.weatherhub.repository.Weather
-import com.example.weatherhub.repository.WeatherDTO
-import com.example.weatherhub.repository.WeatherLoader
+import com.example.weatherhub.repository.*
 import com.example.weatherhub.utils.KEY_BUNDLE_WEATHER
+import com.example.weatherhub.viewmodel.ResponseState
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_details.*
 
-class DetailsFragment : Fragment(), OnServerResponse {
+class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
@@ -33,7 +32,10 @@ class DetailsFragment : Fragment(), OnServerResponse {
 
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
             currentCityName = it.city.name
-            WeatherLoader(this@DetailsFragment).loadWeather(it.city.lat, it.city.lon)
+            WeatherLoader(this@DetailsFragment, this@DetailsFragment).loadWeather(
+                it.city.lat,
+                it.city.lon
+            )
 
         }
     }
@@ -49,7 +51,7 @@ class DetailsFragment : Fragment(), OnServerResponse {
                 append(" ")
                 append(weather.infoDTO.lon)
             }
-            mainView.showSnackBar(getString(R.string.its_work), Snackbar.LENGTH_SHORT)
+//            mainView.showSnackBar(getString(R.string.its_work), Snackbar.LENGTH_SHORT)
         }
     }
 
@@ -76,5 +78,13 @@ class DetailsFragment : Fragment(), OnServerResponse {
 
     override fun onResponse(weatherDTO: WeatherDTO) {
         renderData(weatherDTO)
+    }
+
+    override fun onResponseState(responseState: ResponseState) {
+        when(responseState) {
+            is ResponseState.ResponseOk -> mainView.showSnackBar("Ok", Snackbar.LENGTH_LONG)
+            is ResponseState.ErrorClient -> mainView.showSnackBar("Ошибка $responseState на стороне клиента", Snackbar.LENGTH_LONG)
+            is ResponseState.ErrorServer -> mainView.showSnackBar("Ошибка $responseState на стороне сервера", Snackbar.LENGTH_LONG)
+        }
     }
 }
