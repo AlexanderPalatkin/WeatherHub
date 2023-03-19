@@ -1,14 +1,20 @@
 package com.example.weatherhub.view.details
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.weatherhub.R
 import com.example.weatherhub.databinding.FragmentDetailsBinding
 import com.example.weatherhub.repository.*
-import com.example.weatherhub.utils.KEY_BUNDLE_WEATHER
+import com.example.weatherhub.utils.*
 import com.example.weatherhub.viewmodel.ResponseState
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -17,6 +23,16 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
+
+    private val receiver = object: BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            intent?.let {intent ->
+                intent.getParcelableExtra<WeatherDTO>(KEY_BUNDLE_SERVICE_BROADCAST_WEATHER)?.let {
+                    onResponse(it)
+                }
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,13 +46,18 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(receiver, IntentFilter(
+            KEY_WAVE_SERVICE_BROADCAST))
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
             currentCityName = it.city.name
-            WeatherLoader(this@DetailsFragment, this@DetailsFragment).loadWeather(
-                it.city.lat,
-                it.city.lon
-            )
-
+//            WeatherLoader(this@DetailsFragment, this@DetailsFragment).loadWeather(
+//                it.city.lat,
+//                it.city.lon
+//            )
+            requireActivity().startService(Intent(requireActivity(), DetailsService::class.java).apply {
+                putExtra(KEY_BUNDLE_LAT, it.city.lat)
+                putExtra(KEY_BUNDLE_LON, it.city.lon)
+            })
         }
     }
 
@@ -67,6 +88,7 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(receiver)
     }
 
     private fun View.showSnackBar(

@@ -29,6 +29,7 @@
         </activity>
 
         <service android:name=".lesson6.MainService" />
+        <service android:name=".view.details.DetailsService"/>
         <receiver
             android:name=".lesson6.MyBroadcastReceiver"
             android:exported="true">

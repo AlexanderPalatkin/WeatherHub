@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.weatherhub.BuildConfig
 import com.example.weatherhub.repository.WeatherDTO
 import com.example.weatherhub.utils.*
@@ -19,8 +20,8 @@ import javax.net.ssl.HttpsURLConnection
 class DetailsService(val name: String = "") : IntentService(name) {
     override fun onHandleIntent(intent: Intent?) {
         intent?.let {
-            val lat = it.getStringExtra(KEY_BUNDLE_LAT)
-            val lon = it.getStringExtra(KEY_BUNDLE_LON)
+            val lat = it.getDoubleExtra(KEY_BUNDLE_LAT, 0.0)
+            val lon = it.getDoubleExtra(KEY_BUNDLE_LON, 0.0)
             Log.d("@@@", "DetailsService $lat $lon")
 
             val urlText = "https://api.weather.yandex.ru/v2/informers?lat=$lat&lon=$lon"
@@ -53,10 +54,10 @@ class DetailsService(val name: String = "") : IntentService(name) {
 
             val buffer = BufferedReader(InputStreamReader(urlConnection.inputStream))
             val weatherDTO: WeatherDTO = Gson().fromJson(buffer, WeatherDTO::class.java)
-            val message = Intent(KEY_WAVE)
+            val message = Intent(KEY_WAVE_SERVICE_BROADCAST)
             message.putExtra(KEY_BUNDLE_SERVICE_BROADCAST_WEATHER, weatherDTO)
-            sendBroadcast(message)
-
+//            sendBroadcast(message)
+            LocalBroadcastManager.getInstance(this).sendBroadcast(message)
         }
     }
 }

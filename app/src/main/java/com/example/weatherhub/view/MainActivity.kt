@@ -22,27 +22,27 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
 
-        startService(Intent(this, MainService::class.java).apply {
-            putExtra("key1", "Privet Service")
-        })
-
-        val receiver = MyBroadcastReceiver()
-        registerReceiver(receiver, IntentFilter("myaction"))
-//        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, IntentFilter("myaction"))
+//        startService(Intent(this, MainService::class.java).apply {
+//            putExtra("key1", "Privet Service")
+//        })
+//
+//        val receiver = MyBroadcastReceiver()
+//        registerReceiver(receiver, IntentFilter("myaction"))
+////        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, IntentFilter("myaction"))
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.menu_threads -> {
-                supportFragmentManager.beginTransaction().replace(R.id.container, ThreadsFragment.newInstance()).commit()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.menu, menu)
+//        return super.onCreateOptionsMenu(menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when(item.itemId){
+//            R.id.menu_threads -> {
+//                supportFragmentManager.beginTransaction().replace(R.id.container, ThreadsFragment.newInstance()).commit()
+//            }
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
 }
