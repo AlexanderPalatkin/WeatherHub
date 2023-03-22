@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import com.example.weatherhub.BuildConfig
+import com.example.weatherhub.repository.dto.WeatherDTO
 import com.example.weatherhub.utils.YANDEX_API_KEY
 import com.example.weatherhub.utils.YANDEX_DOMAIN
 import com.example.weatherhub.utils.YANDEX_ENDPOINT

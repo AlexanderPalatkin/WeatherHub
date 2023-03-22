@@ -5,7 +5,7 @@ import android.content.Intent
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.weatherhub.BuildConfig
-import com.example.weatherhub.repository.WeatherDTO
+import com.example.weatherhub.repository.dto.WeatherDTO
 import com.example.weatherhub.utils.*
 import com.google.gson.Gson
 import java.io.BufferedReader

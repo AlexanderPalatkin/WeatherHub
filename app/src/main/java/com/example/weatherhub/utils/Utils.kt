@@ -1,8 +1,8 @@
 package com.example.weatherhub.utils
 
-import com.example.weatherhub.repository.FactDTO
+import com.example.weatherhub.repository.dto.FactDTO
 import com.example.weatherhub.repository.Weather
-import com.example.weatherhub.repository.WeatherDTO
+import com.example.weatherhub.repository.dto.WeatherDTO
 import com.example.weatherhub.repository.getDefaultCity
 
 const val KEY_BUNDLE_WEATHER = "key"

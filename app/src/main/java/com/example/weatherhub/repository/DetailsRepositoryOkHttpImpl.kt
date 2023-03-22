@@ -1,6 +1,7 @@
 package com.example.weatherhub.repository
 
 import com.example.weatherhub.BuildConfig
+import com.example.weatherhub.repository.dto.WeatherDTO
 import com.example.weatherhub.utils.YANDEX_API_KEY
 import com.example.weatherhub.utils.YANDEX_DOMAIN
 import com.example.weatherhub.utils.YANDEX_ENDPOINT
@@ -27,7 +28,7 @@ class DetailsRepositoryOkHttpImpl : DetailsRepository {
                 callback.onResponse(weather)
 
             } else {
-                //TODO HW
+                //TODO
             }
         }.start()
     }
