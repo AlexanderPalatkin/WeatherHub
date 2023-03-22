@@ -6,7 +6,7 @@ import com.example.weatherhub.repository.*
 
 class DetailsViewModel(
     private val liveData: MutableLiveData<DetailsState> = MutableLiveData(),
-    private var repository: DetailsRepository = DetailsRepositoryOkHttpImpl()
+    private var repository: DetailsRepository = DetailsRepositoryRetrofit2Impl()
 ) : ViewModel() {
 
     fun getLiveData() = liveData
