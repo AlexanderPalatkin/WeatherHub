@@ -5,6 +5,8 @@ import android.os.Looper
 import android.util.Log
 import com.example.weatherhub.BuildConfig
 import com.example.weatherhub.utils.YANDEX_API_KEY
+import com.example.weatherhub.utils.YANDEX_DOMAIN
+import com.example.weatherhub.utils.YANDEX_ENDPOINT
 import com.example.weatherhub.viewmodel.ResponseState
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
@@ -19,7 +21,7 @@ class WeatherLoader(
 ) {
     fun loadWeather(lat: Double, lon: Double) {
 
-        val urlText = "https://api.weather.yandex.ru/v2/informers?lat=$lat&lon=$lon"
+        val urlText = "$YANDEX_DOMAIN${YANDEX_ENDPOINT}lat=$lat&lon=$lon"
         val uri = URL(urlText)
 
         Thread {

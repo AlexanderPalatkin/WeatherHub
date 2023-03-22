@@ -44,7 +44,6 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         initRecyclerView()
 
         val observer = Observer<AppState> { data -> renderData(data) }
-
         viewModel.getData().observe(viewLifecycleOwner, observer)
         setupFab()
         viewModel.getWeatherRussian()

@@ -12,4 +12,4 @@ data class InfoDTO(
     val lon: Double,
     @SerializedName("url")
     val url: String
-):Parcelable
+) : Parcelable
