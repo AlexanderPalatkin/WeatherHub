@@ -4,9 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.load
+import coil.request.ImageRequest
 import com.example.weatherhub.databinding.FragmentDetailsBinding
 import com.example.weatherhub.repository.Weather
 import com.example.weatherhub.utils.KEY_BUNDLE_WEATHER
@@ -62,9 +67,26 @@ class DetailsFragment : Fragment() {
                         append(" ")
                         append(weather.city.lon)
                     }
+
+                    headerCityIcon.load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+                    weatherIcon.loadSvg("https://yastatic.net/weather/i/icons/blueye/color/svg/${weather.icon}.svg")
+
                 }
             }
         }
+    }
+
+    fun ImageView.loadSvg(url: String) {
+        val imageLoader = ImageLoader.Builder(this.context)
+            .componentRegistry { add(SvgDecoder(this@loadSvg.context)) }.build()
+        val request =
+            ImageRequest.Builder(this.context)
+                .crossfade(true)
+                .crossfade(500)
+                .data(url)
+                .target(this)
+                .build()
+        imageLoader.enqueue(request)
     }
 
     companion object {
