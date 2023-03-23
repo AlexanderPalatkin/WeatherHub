@@ -26,7 +26,6 @@ class DetailsRepositoryOkHttpImpl : DetailsRepository {
                 val weather = convertDtoToModel(weatherDTO)
                 weather.city = city
                 callback.onResponse(weather)
-
             } else {
 
             }

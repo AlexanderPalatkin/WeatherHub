@@ -28,9 +28,6 @@
                 android:value="" />
         </activity>
 
-
-        <service android:name=".view.details.DetailsService" />
-
     </application>
 
 </manifest>

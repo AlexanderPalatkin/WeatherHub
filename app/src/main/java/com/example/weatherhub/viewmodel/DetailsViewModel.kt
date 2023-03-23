@@ -21,7 +21,6 @@ class DetailsViewModel(
             override fun onFail(throwable: Throwable) {
                 liveData.postValue(DetailsState.Error(throwable))
             }
-
         })
     }
 
