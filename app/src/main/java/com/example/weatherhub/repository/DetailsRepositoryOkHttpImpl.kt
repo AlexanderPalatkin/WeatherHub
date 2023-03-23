@@ -28,7 +28,7 @@ class DetailsRepositoryOkHttpImpl : DetailsRepository {
                 callback.onResponse(weather)
 
             } else {
-                //TODO
+
             }
         }.start()
     }

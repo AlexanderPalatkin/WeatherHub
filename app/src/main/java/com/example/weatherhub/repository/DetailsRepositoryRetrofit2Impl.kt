@@ -27,7 +27,7 @@ class DetailsRepositoryRetrofit2Impl: DetailsRepository {
             }
 
             override fun onFailure(call: Call<WeatherDTO>, t: Throwable) {
-                //TODO
+                callback.onFail(t)
             }
         })
     }

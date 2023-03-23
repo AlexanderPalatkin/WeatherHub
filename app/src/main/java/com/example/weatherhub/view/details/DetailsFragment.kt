@@ -1,6 +1,7 @@
 package com.example.weatherhub.view.details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.example.weatherhub.repository.Weather
 import com.example.weatherhub.utils.KEY_BUNDLE_WEATHER
 import com.example.weatherhub.viewmodel.DetailsState
 import com.example.weatherhub.viewmodel.DetailsViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class DetailsFragment : Fragment() {
 
@@ -50,10 +52,12 @@ class DetailsFragment : Fragment() {
     private fun renderData(detailsState: DetailsState) {
         when (detailsState) {
             is DetailsState.Error -> {
-                //TODO
+                binding.loadingLayout.visibility = View.GONE
+                Snackbar.make(binding.root, "Не получилось", Snackbar.LENGTH_SHORT).show()
+                Log.d("@@@", "${detailsState.error}")
             }
             is DetailsState.Loading -> {
-                //TODO
+                binding.loadingLayout.visibility = View.VISIBLE
             }
             is DetailsState.Success -> {
                 val weather = detailsState.weather
@@ -67,16 +71,15 @@ class DetailsFragment : Fragment() {
                         append(" ")
                         append(weather.city.lon)
                     }
-
+                    weatherCondition.text = weather.condition
                     headerCityIcon.load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
                     weatherIcon.loadSvg("https://yastatic.net/weather/i/icons/blueye/color/svg/${weather.icon}.svg")
-
                 }
             }
         }
     }
 
-    fun ImageView.loadSvg(url: String) {
+    private fun ImageView.loadSvg(url: String) {
         val imageLoader = ImageLoader.Builder(this.context)
             .componentRegistry { add(SvgDecoder(this@loadSvg.context)) }.build()
         val request =
