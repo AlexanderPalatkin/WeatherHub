@@ -44,7 +44,6 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         initRecyclerView()
 
         val observer = Observer<AppState> { data -> renderData(data) }
-
         viewModel.getData().observe(viewLifecycleOwner, observer)
         setupFab()
         viewModel.getWeatherRussian()
@@ -77,7 +76,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         when (data) {
             is AppState.Error -> {
                 binding.loadingLayout.visibility = View.GONE
-                Snackbar.make(binding.root, "Не получилось", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, "Не удалось получить список городов", Snackbar.LENGTH_SHORT).show()
             }
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE

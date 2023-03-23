@@ -1,4 +1,4 @@
-package com.example.weatherhub.repository
+package com.example.weatherhub.repository.dto
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -12,4 +12,4 @@ data class InfoDTO(
     val lon: Double,
     @SerializedName("url")
     val url: String
-):Parcelable
+) : Parcelable

@@ -1,4 +1,4 @@
-package com.example.weatherhub.repository
+package com.example.weatherhub.repository.dto
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -34,4 +34,4 @@ data class FactDTO(
     val windGust: Double,
     @SerializedName("wind_speed")
     val windSpeed: Double
-):Parcelable
+) : Parcelable
