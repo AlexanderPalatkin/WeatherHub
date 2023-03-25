@@ -3,6 +3,7 @@ package com.example.weatherhub.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.weatherhub.R
+import com.example.weatherhub.app.MyApp
 import com.example.weatherhub.view.weatherList.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
@@ -14,5 +15,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
+
     }
 }
