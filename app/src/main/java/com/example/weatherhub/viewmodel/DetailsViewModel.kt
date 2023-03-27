@@ -2,8 +2,11 @@ package com.example.weatherhub.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weatherhub.repository.*
-import com.example.weatherhub.repository.dto.DetailsRepositoryAdd
+import com.example.weatherhub.data.*
+import com.example.weatherhub.model.data.repository.DetailsRepositoryRetrofit2Impl
+import com.example.weatherhub.model.data.repository.DetailsRepositoryRoomImpl
+import com.example.weatherhub.model.domain.usecase.DetailsRepositoryAdd
+import com.example.weatherhub.model.domain.usecase.DetailsRepositoryOne
 
 class DetailsViewModel(
     private val liveData: MutableLiveData<DetailsState> = MutableLiveData(),

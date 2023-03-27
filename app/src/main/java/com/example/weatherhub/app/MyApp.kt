@@ -2,8 +2,8 @@ package com.example.weatherhub.app
 
 import android.app.Application
 import androidx.room.Room
-import com.example.weatherhub.domain.room.HistoryDao
-import com.example.weatherhub.domain.room.HistoryDB
+import com.example.weatherhub.model.data.room.HistoryDao
+import com.example.weatherhub.model.data.room.HistoryDB
 
 class MyApp : Application() {
     override fun onCreate() {
