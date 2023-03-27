@@ -1,6 +1,6 @@
-package com.example.weatherhub.repository
+package com.example.weatherhub.model.domain.usecase
 
-import com.example.weatherhub.repository.dto.WeatherDTO
+import com.example.weatherhub.model.data.dto.WeatherDTO
 import com.example.weatherhub.utils.KEY_BUNDLE_LAT
 import com.example.weatherhub.utils.KEY_BUNDLE_LON
 import com.example.weatherhub.utils.YANDEX_API_KEY

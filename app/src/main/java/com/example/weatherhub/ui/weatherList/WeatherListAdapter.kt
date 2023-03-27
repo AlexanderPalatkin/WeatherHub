@@ -1,11 +1,11 @@
-package com.example.weatherhub.view.weatherList
+package com.example.weatherhub.ui.weatherList
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherhub.databinding.FragmentWeatherListRecyclerItemBinding
-import com.example.weatherhub.repository.Weather
+import com.example.weatherhub.data.Weather
 
 class WeatherListAdapter(
     private val onItemListClickListener: OnItemListClickListener,

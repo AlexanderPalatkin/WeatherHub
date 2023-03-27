@@ -1,4 +1,4 @@
-package com.example.weatherhub.repository.dto
+package com.example.weatherhub.model.data.dto
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

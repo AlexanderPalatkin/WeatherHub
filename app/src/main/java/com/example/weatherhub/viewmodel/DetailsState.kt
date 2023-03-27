@@ -1,6 +1,6 @@
 package com.example.weatherhub.viewmodel
 
-import com.example.weatherhub.repository.Weather
+import com.example.weatherhub.data.Weather
 
 sealed class DetailsState {
     object Loading : DetailsState()

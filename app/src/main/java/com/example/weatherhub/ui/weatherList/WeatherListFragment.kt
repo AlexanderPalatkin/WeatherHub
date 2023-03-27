@@ -1,5 +1,6 @@
-package com.example.weatherhub.view.weatherList
+package com.example.weatherhub.ui.weatherList
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,11 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherhub.R
 import com.example.weatherhub.databinding.FragmentWeatherListBinding
-import com.example.weatherhub.repository.Weather
+import com.example.weatherhub.data.Weather
 import com.example.weatherhub.utils.KEY_BUNDLE_WEATHER
-import com.example.weatherhub.view.details.DetailsFragment
-import com.example.weatherhub.viewmodel.AppState
+import com.example.weatherhub.ui.details.DetailsFragment
+import com.example.weatherhub.utils.IS_WORLD_KEY
 import com.example.weatherhub.viewmodel.MainViewModel
+import com.example.weatherhub.viewmodel.AppState
 import com.google.android.material.snackbar.Snackbar
 
 class WeatherListFragment : Fragment(), OnItemListClickListener {
@@ -28,7 +30,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
 
-    private var isRussian: Boolean = true
+    private var isDataSetWorld: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,29 +48,12 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         val observer = Observer<AppState> { data -> renderData(data) }
         viewModel.getData().observe(viewLifecycleOwner, observer)
         setupFab()
-        viewModel.getWeatherRussian()
+        showListOfTowns()
     }
 
     private fun setupFab() {
         binding.floatingActionButton.setOnClickListener {
-            isRussian = !isRussian
-            if (isRussian) {
-                viewModel.getWeatherRussian()
-                binding.floatingActionButton.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_russia
-                    )
-                )
-            } else {
-                viewModel.getWeatherWorld()
-                binding.floatingActionButton.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_earth
-                    )
-                )
-            }
+            changeWeatherDataSet()
         }
     }
 
@@ -76,7 +61,11 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         when (data) {
             is AppState.Error -> {
                 binding.loadingLayout.visibility = View.GONE
-                Snackbar.make(binding.root, "Не удалось получить список городов", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(
+                    binding.root,
+                    "Не удалось получить список городов",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
@@ -97,6 +86,41 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
 
     private fun initRecyclerView() {
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun saveListOfTowns(isDataSetWorld: Boolean) {
+        activity?.let {
+            with(it.getPreferences(Context.MODE_PRIVATE).edit()) {
+                putBoolean(IS_WORLD_KEY, isDataSetWorld)
+                apply()
+            }
+        }
+    }
+
+    private fun showListOfTowns() {
+        activity?.let {
+            if (it.getPreferences(Context.MODE_PRIVATE).getBoolean(
+                    IS_WORLD_KEY,
+                    false
+                )
+            ) {
+                changeWeatherDataSet()
+            } else {
+                viewModel.getWeatherRussian()
+            }
+        }
+    }
+
+    private fun changeWeatherDataSet() {
+        if (isDataSetWorld) {
+            viewModel.getWeatherRussian()
+            binding.floatingActionButton.setImageResource(R.drawable.ic_russia)
+        } else {
+            viewModel.getWeatherWorld()
+            binding.floatingActionButton.setImageResource(R.drawable.ic_earth)
+        }
+        isDataSetWorld = !isDataSetWorld
+        saveListOfTowns(isDataSetWorld)
     }
 
     companion object {

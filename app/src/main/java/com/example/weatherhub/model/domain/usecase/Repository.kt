@@ -1,4 +1,6 @@
-package com.example.weatherhub.repository
+package com.example.weatherhub.model.domain.usecase
+
+import com.example.weatherhub.data.Weather
 
 interface Repository {
     fun getWeatherFromServer(): Weather

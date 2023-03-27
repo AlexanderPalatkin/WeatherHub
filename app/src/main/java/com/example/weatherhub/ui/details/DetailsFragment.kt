@@ -1,4 +1,4 @@
-package com.example.weatherhub.view.details
+package com.example.weatherhub.ui.details
 
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +14,7 @@ import coil.decode.SvgDecoder
 import coil.load
 import coil.request.ImageRequest
 import com.example.weatherhub.databinding.FragmentDetailsBinding
-import com.example.weatherhub.repository.Weather
+import com.example.weatherhub.data.Weather
 import com.example.weatherhub.utils.KEY_BUNDLE_WEATHER
 import com.example.weatherhub.viewmodel.DetailsState
 import com.example.weatherhub.viewmodel.DetailsViewModel
