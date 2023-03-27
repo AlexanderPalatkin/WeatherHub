@@ -7,7 +7,8 @@ import com.example.weatherhub.data.Weather
 import com.example.weatherhub.model.data.dto.WeatherDTO
 import com.example.weatherhub.data.getDefaultCity
 
-const val KEY_BUNDLE_WEATHER = "key"
+const val KEY_BUNDLE_WEATHER = "KEY_BUNDLE_WEATHER"
+const val IS_WORLD_KEY = "LIST_OF_TOWNS_KEY"
 const val YANDEX_API_KEY = "X-Yandex-API-Key"
 const val YANDEX_DOMAIN = "https://api.weather.yandex.ru/"
 const val YANDEX_ENDPOINT = "v2/informers?"
