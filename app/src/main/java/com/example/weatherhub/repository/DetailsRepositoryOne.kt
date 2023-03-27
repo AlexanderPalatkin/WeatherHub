@@ -2,6 +2,6 @@ package com.example.weatherhub.repository
 
 import com.example.weatherhub.viewmodel.DetailsViewModel
 
-interface DetailsRepository {
+interface DetailsRepositoryOne {
     fun getWeatherDetails(city: City, callback: DetailsViewModel.CallBack)
 }

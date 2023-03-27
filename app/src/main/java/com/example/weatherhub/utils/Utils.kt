@@ -1,5 +1,7 @@
 package com.example.weatherhub.utils
 
+import com.example.weatherhub.domain.room.HistoryEntity
+import com.example.weatherhub.repository.City
 import com.example.weatherhub.repository.dto.FactDTO
 import com.example.weatherhub.repository.Weather
 import com.example.weatherhub.repository.dto.WeatherDTO
@@ -20,4 +22,21 @@ class Utils {
 fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {
     val fact: FactDTO = weatherDTO.factDTO
     return (Weather(getDefaultCity(), fact.temperature, fact.feelsLike, fact.icon, fact.condition))
+}
+
+fun converterHistoryEntityToWeather(entityList: List<HistoryEntity>): List<Weather> {
+    return entityList.map {
+        Weather(City(it.city, 0.0, 0.0), it.temperature, it.feelsLike, it.icon, it.condition)
+    }
+}
+
+fun converterWeatherToHistoryEntity(weather: Weather): HistoryEntity {
+    return HistoryEntity(
+        0,
+        weather.city.name,
+        weather.temperature,
+        weather.feelsLike,
+        weather.icon,
+        weather.condition
+    )
 }

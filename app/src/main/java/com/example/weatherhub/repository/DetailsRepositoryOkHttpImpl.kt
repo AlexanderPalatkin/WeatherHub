@@ -10,7 +10,7 @@ import com.example.weatherhub.viewmodel.DetailsViewModel
 import com.google.gson.Gson
 import okhttp3.*
 
-class DetailsRepositoryOkHttpImpl : DetailsRepository {
+class DetailsRepositoryOkHttpImpl : DetailsRepositoryOne {
     override fun getWeatherDetails(city: City, callback: DetailsViewModel.CallBack) {
         val client = OkHttpClient()
         val builder = Request.Builder()

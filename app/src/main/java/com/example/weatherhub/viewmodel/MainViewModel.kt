@@ -12,6 +12,7 @@ class MainViewModel(
 
     ViewModel() {
     fun getData(): LiveData<AppState> = liveData
+
     fun getWeatherRussian() = getWeather(true)
     fun getWeatherWorld() = getWeather(false)
 

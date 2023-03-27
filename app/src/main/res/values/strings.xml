@@ -11,7 +11,7 @@
     <string name="city_coordinates_text">lt/ln: 55.755826, 37.617299900000035</string>
     <string name="its_work">Получилось</string>
 
-    <string name="threads">Threads</string>
+    <string name="history">History</string>
     <string name="in_main_thread">В главном потоке</string>
     <string name="from_thread">Из потока %d</string>
     <string name="in_thread">Выводим в потоке %s</string>

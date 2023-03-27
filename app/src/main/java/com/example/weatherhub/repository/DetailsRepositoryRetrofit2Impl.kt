@@ -9,7 +9,7 @@ import com.google.gson.GsonBuilder
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
-class DetailsRepositoryRetrofit2Impl : DetailsRepository {
+class DetailsRepositoryRetrofit2Impl : DetailsRepositoryOne {
     override fun getWeatherDetails(city: City, callback: DetailsViewModel.CallBack) {
         val weatherAPI = Retrofit.Builder().apply {
             baseUrl(YANDEX_DOMAIN)
