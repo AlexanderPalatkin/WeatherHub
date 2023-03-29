@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.example.weatherhub.R
+import com.example.weatherhub.lesson9.WorkWithContentProviderFragment
 import com.example.weatherhub.ui.history.HistoryWeatherListFragment
 import com.example.weatherhub.ui.weatherList.WeatherListFragment
 
@@ -29,7 +30,13 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.action_history -> {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.container, HistoryWeatherListFragment.newInstance()).addToBackStack("").commit()
+                    .add(R.id.container, HistoryWeatherListFragment.newInstance())
+                    .addToBackStack("").commit()
+            }
+            R.id.work_with_content_provider -> {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, WorkWithContentProviderFragment.newInstance())
+                    .addToBackStack("").commit()
             }
         }
         return super.onOptionsItemSelected(item)
