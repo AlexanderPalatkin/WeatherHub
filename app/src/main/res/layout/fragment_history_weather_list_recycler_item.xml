@@ -14,28 +14,28 @@
             android:id="@+id/tvCityName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp" />
+            android:textSize="@dimen/rw_history_text_size" />
 
         <TextView
             android:id="@+id/tvTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:textSize="15sp" />
+            android:padding="@dimen/rw_history_padding"
+            android:textSize="@dimen/rw_history_text_size" />
 
         <TextView
             android:id="@+id/tvFeelsLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:textSize="15sp" />
+            android:padding="@dimen/rw_history_padding"
+            android:textSize="@dimen/rw_history_text_size" />
 
         <TextView
             android:id="@+id/tvCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:textSize="15sp" />
+            android:padding="@dimen/rw_history_padding"
+            android:textSize="@dimen/rw_history_text_size" />
 
     </LinearLayout>
 
