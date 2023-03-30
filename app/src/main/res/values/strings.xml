@@ -24,4 +24,5 @@
     <string name="handler_thread">Handler_Thread</string>
     <string name="service">Service</string>
     <string name="service_broadcast">Service + Broadcast</string>
+    <string name="Contacts">Контакты</string>
 </resources>

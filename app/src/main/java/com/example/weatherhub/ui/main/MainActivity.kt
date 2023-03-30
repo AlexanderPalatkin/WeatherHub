@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.example.weatherhub.R
-import com.example.weatherhub.lesson9.WorkWithContentProviderFragment
+import com.example.weatherhub.ui.contacts.PhoneContactsFragment
 import com.example.weatherhub.ui.history.HistoryWeatherListFragment
 import com.example.weatherhub.ui.weatherList.WeatherListFragment
 
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.work_with_content_provider -> {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.container, WorkWithContentProviderFragment.newInstance())
+                    .add(R.id.container, PhoneContactsFragment.newInstance())
                     .addToBackStack("").commit()
             }
         }

@@ -1,29 +1,30 @@
-package com.example.weatherhub.lesson9
+package com.example.weatherhub.ui.contacts
 
 import android.app.AlertDialog
+import android.content.ContentResolver
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.weatherhub.databinding.FragmentWorkWithContentProviderBinding
+import com.example.weatherhub.databinding.FragmentPhoneContactsBinding
+import com.example.weatherhub.utils.REQUEST_PERMISSION_CODE
 
-class WorkWithContentProviderFragment : Fragment() {
 
-    private var _binding: FragmentWorkWithContentProviderBinding? = null
+class PhoneContactsFragment : Fragment() {
+
+    private var _binding: FragmentPhoneContactsBinding? = null
     private val binding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWorkWithContentProviderBinding.inflate(inflater, container, false)
+        _binding = FragmentPhoneContactsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -32,7 +33,6 @@ class WorkWithContentProviderFragment : Fragment() {
         checkPermission()
     }
 
-    val REQUEST_CODE = 42
     private fun checkPermission() {
 //       есть ли разрешение
         if (ContextCompat.checkSelfPermission(
@@ -50,15 +50,19 @@ class WorkWithContentProviderFragment : Fragment() {
     }
 
     private fun mRequestPermission() {
-        requestPermissions(arrayOf(android.Manifest.permission.READ_CONTACTS), REQUEST_CODE)
+        requestPermissions(
+            arrayOf(android.Manifest.permission.READ_CONTACTS),
+            REQUEST_PERMISSION_CODE
+        )
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_CODE) {
+        if (requestCode == REQUEST_PERMISSION_CODE) {
             if (grantResults.isNotEmpty()
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED
             ) {
@@ -72,7 +76,29 @@ class WorkWithContentProviderFragment : Fragment() {
     }
 
     private fun getContacts() {
+        val contentResolver: ContentResolver = requireContext().contentResolver
+        val cursor = contentResolver.query(
+            ContactsContract.Contacts.CONTENT_URI,
+            null,
+            null,
+            null,
+            ContactsContract.Contacts.DISPLAY_NAME + " ASC"
+        )
 
+        cursor?.let {
+            for (i in 0 until it.count) {
+                if (cursor.moveToPosition(i)) {
+                    val columnIndexCursor =
+                        cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+                    val name: String = cursor.getString(columnIndexCursor)
+                    binding.containerForContacts.addView(TextView(requireContext()).apply {
+                        textSize = 30f
+                        text = name
+                    })
+                }
+            }
+        }
+        cursor?.close()
     }
 
     private fun explain() {
@@ -91,7 +117,7 @@ class WorkWithContentProviderFragment : Fragment() {
 
     companion object {
         fun newInstance() =
-            WorkWithContentProviderFragment()
+            PhoneContactsFragment()
     }
 
     override fun onDestroy() {
