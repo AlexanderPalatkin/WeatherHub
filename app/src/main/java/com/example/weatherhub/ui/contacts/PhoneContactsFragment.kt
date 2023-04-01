@@ -11,8 +11,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.weatherhub.R
 import com.example.weatherhub.databinding.FragmentPhoneContactsBinding
-import com.example.weatherhub.utils.REQUEST_PERMISSION_CODE
+import com.example.weatherhub.utils.REQUEST_PERMISSION_CONTACTS_CODE
 
 
 class PhoneContactsFragment : Fragment() {
@@ -52,7 +53,7 @@ class PhoneContactsFragment : Fragment() {
     private fun mRequestPermission() {
         requestPermissions(
             arrayOf(android.Manifest.permission.READ_CONTACTS),
-            REQUEST_PERMISSION_CODE
+            REQUEST_PERMISSION_CONTACTS_CODE
         )
     }
 
@@ -62,7 +63,7 @@ class PhoneContactsFragment : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_PERMISSION_CODE) {
+        if (requestCode == REQUEST_PERMISSION_CONTACTS_CODE) {
             if (grantResults.isNotEmpty()
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED
             ) {
@@ -103,16 +104,17 @@ class PhoneContactsFragment : Fragment() {
 
     private fun explain() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Доступ к контактам")
-            .setMessage("Объяснение")
-            .setPositiveButton("Предоставить доступ") { _, _ ->
+            .setTitle(getString(R.string.dialog_rationale_title))
+            .setMessage(getString(R.string.dialog_rationale_message))
+            .setPositiveButton(getString(R.string.dialog_rationale_give_access))
+            { _, _ ->
                 mRequestPermission()
             }
-            .setNegativeButton("Не надо") { dialog, _ ->
-                dialog.dismiss()
-            }
+            .setNegativeButton(getString(R.string.dialog_rationale_decline)) {
+                    dialog, _ -> dialog.dismiss() }
             .create()
             .show()
+
     }
 
     companion object {

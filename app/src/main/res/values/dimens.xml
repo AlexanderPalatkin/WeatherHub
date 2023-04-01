@@ -20,4 +20,5 @@
     <dimen name="main_container_text_size">10sp</dimen>
     <dimen name="rw_history_text_size">15sp</dimen>
     <dimen name="rw_history_padding">5dp</dimen>
+    <dimen name="fab_location_icon_size">45dp</dimen>
 </resources>

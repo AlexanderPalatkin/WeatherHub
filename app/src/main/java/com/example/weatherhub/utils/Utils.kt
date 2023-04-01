@@ -14,7 +14,10 @@ const val YANDEX_DOMAIN = "https://api.weather.yandex.ru/"
 const val YANDEX_ENDPOINT = "v2/informers?"
 const val KEY_BUNDLE_LAT = "lat"
 const val KEY_BUNDLE_LON = "lon"
-const val REQUEST_PERMISSION_CODE = 42
+const val REQUEST_PERMISSION_CONTACTS_CODE = 42
+const val REQUEST_PERMISSION_LOCATION_CODE = 43
+const val REFRESH_PERIOD = 60000L
+const val MINIMAL_DISTANCE = 100f
 
 class Utils {
 }
