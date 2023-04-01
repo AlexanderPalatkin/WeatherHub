@@ -7,6 +7,7 @@ import android.view.MenuItem
 import com.example.weatherhub.R
 import com.example.weatherhub.ui.contacts.PhoneContactsFragment
 import com.example.weatherhub.ui.history.HistoryWeatherListFragment
+import com.example.weatherhub.ui.maps.MapsFragment
 import com.example.weatherhub.ui.weatherList.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +38,14 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.container, PhoneContactsFragment.newInstance())
                     .addToBackStack("").commit()
+            }
+            R.id.menu_google_maps -> {
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .add(R.id.container, MapsFragment())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
             }
         }
         return super.onOptionsItemSelected(item)

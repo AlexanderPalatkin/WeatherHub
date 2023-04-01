@@ -28,6 +28,7 @@ import com.example.weatherhub.viewmodel.AppState
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_weather_list.*
 import java.io.IOException
+import java.util.*
 
 class WeatherListFragment : Fragment(), OnItemListClickListener {
 
@@ -124,7 +125,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
     }
 
     private fun getAddressByLocation(context: Context,location: Location) {
-        val geocoder = Geocoder(context)
+        val geocoder = Geocoder(context, Locale.getDefault())
         val timeStamp = System.currentTimeMillis()
         Thread {
             try {
@@ -175,7 +176,6 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
                             MINIMAL_DISTANCE,
                             locationListener
                         )
-
                     }
                 }
             }

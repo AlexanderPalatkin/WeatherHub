@@ -18,6 +18,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WeatherHub"
         tools:targetApi="31">
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC6QoaD2aT4_U4eJlSH26nqnYqZ6KG-HJQ" />
+
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
@@ -31,7 +37,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
     </application>
 
 </manifest>
