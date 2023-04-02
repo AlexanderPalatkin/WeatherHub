@@ -49,6 +49,7 @@ class MapsFragment : Fragment() {
             addMarkerToArray(latLng)
             drawLine()
         }
+        map.uiSettings.isZoomControlsEnabled = true
     }
 
     private lateinit var map: GoogleMap
