@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.load
 import coil.request.ImageRequest
-import com.example.weatherhub.databinding.FragmentDetailsBinding
 import com.example.weatherhub.data.Weather
+import com.example.weatherhub.databinding.FragmentDetailsBinding
 import com.example.weatherhub.utils.KEY_BUNDLE_WEATHER
 import com.example.weatherhub.viewmodel.DetailsState
 import com.example.weatherhub.viewmodel.DetailsViewModel
@@ -39,11 +38,9 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getLiveData().observe(viewLifecycleOwner, object : Observer<DetailsState> {
-            override fun onChanged(t: DetailsState) {
-                renderData(t)
-            }
-        })
+        viewModel.getLiveData().observe(viewLifecycleOwner
+        ) { t -> renderData(t) }
+        @Suppress("DEPRECATION")
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
             viewModel.getWeather(it.city)
         }

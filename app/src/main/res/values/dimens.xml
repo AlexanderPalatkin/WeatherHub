@@ -2,7 +2,7 @@
 <resources>
     <dimen name="margin_15_dp">15dp</dimen>
     <dimen name="temperature_value_text_size">40sp</dimen>
-    <dimen name="feels_like_text_size">30sp</dimen>
+    <dimen name="feels_like_text_size">40sp</dimen>
     <dimen name="city_name_text_size">35sp</dimen>
     <dimen name="city_coordinates_margin_top">5dp</dimen>
     <dimen name="float_button_max_img_size">56dp</dimen>
@@ -20,4 +20,5 @@
     <dimen name="main_container_text_size">10sp</dimen>
     <dimen name="rw_history_text_size">15sp</dimen>
     <dimen name="rw_history_padding">5dp</dimen>
+    <dimen name="fab_location_icon_size">45dp</dimen>
 </resources>

@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">WeatherHub</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="temperature_label">Температура</string>
     <string name="feels_like_label">Ощущается как</string>
@@ -12,17 +10,30 @@
     <string name="its_work">Получилось</string>
 
     <string name="history">History</string>
-    <string name="in_main_thread">В главном потоке</string>
-    <string name="from_thread">Из потока %d</string>
-    <string name="in_thread">Выводим в потоке %s</string>
-    <string name="calculate_in_thread">Считаем в потоке %s</string>
-    <string name="my_handler_thread">My_Handler_Thread</string>
-    <string name="hello_from_thread_fragment">Hello from ThreadsFragment</string>
-    <string name="calculate">Расчёт</string>
-    <string name="default_number">1</string>
-    <string name="calc_in_thread">Расчёт в потоке</string>
-    <string name="handler_thread">Handler_Thread</string>
-    <string name="service">Service</string>
-    <string name="service_broadcast">Service + Broadcast</string>
     <string name="Contacts">Контакты</string>
+
+    <!-- Рационализация -->
+    <string name="dialog_button_close">Закрыть</string>
+    <string name="dialog_title_no_gps">Доступ к геолокации закрыт</string>
+    <string name="dialog_message_no_gps">Разрешите доступ к геолокации, если хотите
+узнать погоду текущего места</string>
+    <string name="dialog_title_gps_turned_off">GPS отключён</string>
+    <string name="dialog_message_last_location_unknown">Местонахождение неизвестно.
+Включите GPS, если хотите получить погоду по текущему адресу</string>
+    <string name="dialog_message_last_known_location">Показана последняя известная
+локация. Включите GPS, если хотите обновить местонахождение</string>
+    <string name="dialog_rationale_title">Доступ к геолокации</string>
+    <string name="dialog_rationale_message">Объяснение</string>
+    <string name="dialog_rationale_give_access">Предоставить доступ</string>
+    <string name="dialog_rationale_decline">Не надо</string>
+    <string name="dialog_address_title">Ваш адрес</string>
+    <string name="dialog_address_get_weather">Узнать погоду</string>
+    <string name="google_maps">google map</string>
+
+    <!-- maps -->
+    <string name="default_address">Red Square, 1, Moscow</string>
+    <string name="button_search_map">Search</string>
+    <string name="marker_start">Start</string>
+    <string name="search_address">Введите адрес</string>
+
 </resources>
