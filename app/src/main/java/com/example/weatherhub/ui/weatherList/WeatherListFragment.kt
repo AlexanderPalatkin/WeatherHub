@@ -1,7 +1,6 @@
 package com.example.weatherhub.ui.weatherList
 
 import android.app.AlertDialog
-import android.app.LocaleManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -9,22 +8,21 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherhub.R
 import com.example.weatherhub.data.City
-import com.example.weatherhub.databinding.FragmentWeatherListBinding
 import com.example.weatherhub.data.Weather
+import com.example.weatherhub.databinding.FragmentWeatherListBinding
 import com.example.weatherhub.ui.details.DetailsFragment
 import com.example.weatherhub.utils.*
-import com.example.weatherhub.viewmodel.MainViewModel
 import com.example.weatherhub.viewmodel.AppState
+import com.example.weatherhub.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_weather_list.*
 import java.io.IOException
@@ -77,7 +75,6 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         ) {
             getLocation()
         } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-            // важно написать убедительную просьбу
             explain()
         } else {
             mRequestPermission()
@@ -95,10 +92,10 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
             .setNegativeButton(getString(R.string.dialog_rationale_decline)) { dialog, _ -> dialog.dismiss() }
             .create()
             .show()
-
     }
 
     private fun mRequestPermission() {
+        @Suppress("DEPRECATION")
         requestPermissions(
             arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
             REQUEST_PERMISSION_LOCATION_CODE
@@ -120,41 +117,27 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
                 explain()
             }
         } else {
+            @Suppress("DEPRECATION")
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
 
-    private fun getAddressByLocation(context: Context,location: Location) {
+    private fun getAddressByLocation(context: Context, location: Location) {
         val geocoder = Geocoder(context, Locale.getDefault())
-        val timeStamp = System.currentTimeMillis()
         Thread {
             try {
-                val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 10)
+                @Suppress("DEPRECATION") val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 10)
                 weatherListFragmentFABLocation.post {
                     addresses?.get(0)?.let { showAddressDialog(it.getAddressLine(0), location) }
                 }
-            } catch  (e: IOException) {
+            } catch (e: IOException) {
                 e.printStackTrace()
             }
         }.start()
-        Log.d("@@@", "proshlo ${System.currentTimeMillis() - timeStamp}")
     }
 
-    private val locationListener = object : LocationListener {
-        override fun onLocationChanged(location: Location) {
-            Log.d("@@@", location.toString())
-            context?.let { getAddressByLocation(it, location) }
-
-        }
-
-        override fun onProviderDisabled(provider: String) {
-            super.onProviderDisabled(provider)
-        }
-
-        override fun onProviderEnabled(provider: String) {
-            super.onProviderEnabled(provider)
-        }
-
+    private val locationListener = LocationListener { location ->
+        context?.let { getAddressByLocation(it, location) }
     }
 
     private fun getLocation() {
@@ -167,7 +150,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
                 val locationManager =
                     it.getSystemService(Context.LOCATION_SERVICE) as LocationManager
                 if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    val providerGPS =
+                    @Suppress("DEPRECATION") val providerGPS =
                         locationManager.getProvider(LocationManager.GPS_PROVIDER) // лучше использовать getBestProvider
                     providerGPS?.let {
                         locationManager.requestLocationUpdates(
@@ -179,7 +162,6 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
                     }
                 }
             }
-
         }
     }
 

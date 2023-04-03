@@ -51,6 +51,7 @@ class PhoneContactsFragment : Fragment() {
     }
 
     private fun mRequestPermission() {
+        @Suppress("DEPRECATION")
         requestPermissions(
             arrayOf(android.Manifest.permission.READ_CONTACTS),
             REQUEST_PERMISSION_CONTACTS_CODE
@@ -72,6 +73,7 @@ class PhoneContactsFragment : Fragment() {
                 explain()
             }
         } else {
+            @Suppress("DEPRECATION")
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
@@ -114,7 +116,6 @@ class PhoneContactsFragment : Fragment() {
                     dialog, _ -> dialog.dismiss() }
             .create()
             .show()
-
     }
 
     companion object {

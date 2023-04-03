@@ -1,5 +1,6 @@
 package com.example.weatherhub.ui.history
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ class HistoryWeatherListAdapter(
 ) :
     RecyclerView.Adapter<HistoryWeatherListAdapter.CityHolder>() {
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(newData: List<Weather>) {
         this.data = newData
         notifyDataSetChanged()
@@ -27,7 +29,7 @@ class HistoryWeatherListAdapter(
     }
 
     override fun onBindViewHolder(holder: CityHolder, position: Int) {
-        holder.bind(data.get(position))
+        holder.bind(data[position])
     }
 
     override fun getItemCount(): Int {

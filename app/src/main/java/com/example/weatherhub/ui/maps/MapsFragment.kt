@@ -1,5 +1,8 @@
 package com.example.weatherhub.ui.maps
 
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.app.AlertDialog
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
@@ -7,9 +10,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.weatherhub.R
 import com.example.weatherhub.databinding.FragmentMapsMainBinding
+import com.example.weatherhub.utils.REQUEST_PERMISSION_LOCATION_CODE
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -39,7 +44,7 @@ class MapsFragment : Fragment() {
          * user has installed Google Play services and returned to the app.
          */
         map = googleMap
-        val initialPlace = LatLng(52.52000659999999, 13.404953999999975)
+        val initialPlace = LatLng(55.7558, 37.6173)
         googleMap.addMarker(
             MarkerOptions().position(initialPlace).title(getString(R.string.marker_start))
         )
@@ -50,6 +55,7 @@ class MapsFragment : Fragment() {
             drawLine()
         }
         map.uiSettings.isZoomControlsEnabled = true
+        checkPermissionFineLocation()
     }
 
     private lateinit var map: GoogleMap
@@ -76,7 +82,7 @@ class MapsFragment : Fragment() {
             val geoCoder = Geocoder(it)
             Thread {
                 try {
-                    val addresses =
+                    @Suppress("DEPRECATION") val addresses =
                         geoCoder.getFromLocation(
                             location.latitude,
                             location.longitude, 1
@@ -133,7 +139,8 @@ class MapsFragment : Fragment() {
             val searchText = searchAddress.text.toString()
             Thread {
                 try {
-                    val addresses = geoCoder.getFromLocationName(searchText, 1)
+                    @Suppress("DEPRECATION") val addresses =
+                        geoCoder.getFromLocationName(searchText, 1)
                     if (addresses != null) {
                         if (addresses.size > 0) {
                             goToAddress(addresses, it, searchText)
@@ -166,4 +173,72 @@ class MapsFragment : Fragment() {
         }
     }
 
+    private fun checkPermissionFineLocation() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            activateMyLocation()
+        } else if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION)) {
+            explain()
+        } else {
+            mRequestPermission()
+        }
+    }
+
+
+    private fun activateMyLocation() {
+        context?.let {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                map.isMyLocationEnabled = true
+                map.uiSettings.isMyLocationButtonEnabled = true
+            }
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun mRequestPermission() {
+        requestPermissions(
+            arrayOf(ACCESS_FINE_LOCATION),
+            REQUEST_PERMISSION_LOCATION_CODE
+        )
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == REQUEST_PERMISSION_LOCATION_CODE) {
+            if (grantResults.isNotEmpty()
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED
+            ) {
+                activateMyLocation()
+            } else {
+                explain()
+            }
+        } else {
+            @Suppress("DEPRECATION")
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+    }
+
+    private fun explain() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.dialog_rationale_title))
+            .setMessage(getString(R.string.dialog_rationale_message))
+            .setPositiveButton(getString(R.string.dialog_rationale_give_access))
+            { _, _ ->
+                mRequestPermission()
+            }
+            .setNegativeButton(getString(R.string.dialog_rationale_decline)) { dialog, _ -> dialog.dismiss() }
+            .create()
+            .show()
+    }
 }
