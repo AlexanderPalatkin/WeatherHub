@@ -1,4 +1,4 @@
-package com.example.weatherhub.viewmodel
+package com.example.weatherhub.ui.details
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

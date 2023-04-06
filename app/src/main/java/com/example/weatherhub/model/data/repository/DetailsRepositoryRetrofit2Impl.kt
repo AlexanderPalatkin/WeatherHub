@@ -7,7 +7,7 @@ import com.example.weatherhub.model.domain.usecase.DetailsRepositoryOne
 import com.example.weatherhub.model.domain.usecase.WeatherAPI
 import com.example.weatherhub.utils.YANDEX_DOMAIN
 import com.example.weatherhub.utils.convertDtoToModel
-import com.example.weatherhub.viewmodel.DetailsViewModel
+import com.example.weatherhub.ui.details.DetailsViewModel
 import com.google.gson.GsonBuilder
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory

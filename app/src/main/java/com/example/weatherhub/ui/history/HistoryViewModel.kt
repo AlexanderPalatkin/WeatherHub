@@ -1,10 +1,11 @@
-package com.example.weatherhub.viewmodel
+package com.example.weatherhub.ui.history
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weatherhub.model.data.repository.DetailsRepositoryRoomImpl
 import com.example.weatherhub.data.Weather
+import com.example.weatherhub.app.AppState
 
 class HistoryViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData(),

@@ -1,11 +1,12 @@
-package com.example.weatherhub.viewmodel
+package com.example.weatherhub.ui.weatherList
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weatherhub.model.domain.entity.RepositoryImpl
+import com.example.weatherhub.app.AppState
 
-class MainViewModel(
+class WeatherListViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData(),
     private val repository: RepositoryImpl = RepositoryImpl()
 ) :

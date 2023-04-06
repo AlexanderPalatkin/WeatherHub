@@ -8,7 +8,7 @@ import com.example.weatherhub.utils.YANDEX_API_KEY
 import com.example.weatherhub.utils.YANDEX_DOMAIN
 import com.example.weatherhub.utils.YANDEX_ENDPOINT
 import com.example.weatherhub.utils.convertDtoToModel
-import com.example.weatherhub.viewmodel.DetailsViewModel
+import com.example.weatherhub.ui.details.DetailsViewModel
 import com.google.gson.Gson
 import okhttp3.*
 

@@ -8,8 +8,8 @@ import com.example.weatherhub.model.domain.usecase.DetailsRepositoryAll
 import com.example.weatherhub.model.domain.usecase.DetailsRepositoryOne
 import com.example.weatherhub.utils.converterHistoryEntityToWeather
 import com.example.weatherhub.utils.converterWeatherToHistoryEntity
-import com.example.weatherhub.viewmodel.DetailsViewModel
-import com.example.weatherhub.viewmodel.HistoryViewModel
+import com.example.weatherhub.ui.details.DetailsViewModel
+import com.example.weatherhub.ui.history.HistoryViewModel
 
 class DetailsRepositoryRoomImpl : DetailsRepositoryOne, DetailsRepositoryAll, DetailsRepositoryAdd {
     override fun getAllWeatherDetails(callback: HistoryViewModel.CallBackForAllCities) {

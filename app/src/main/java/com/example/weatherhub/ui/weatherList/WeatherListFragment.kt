@@ -21,8 +21,7 @@ import com.example.weatherhub.data.Weather
 import com.example.weatherhub.databinding.FragmentWeatherListBinding
 import com.example.weatherhub.ui.details.DetailsFragment
 import com.example.weatherhub.utils.*
-import com.example.weatherhub.viewmodel.AppState
-import com.example.weatherhub.viewmodel.MainViewModel
+import com.example.weatherhub.app.AppState
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_weather_list.*
 import java.io.IOException
@@ -35,8 +34,8 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
 
     private val adapter = WeatherListAdapter(this)
 
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
+    private val viewModel: WeatherListViewModel by lazy {
+        ViewModelProvider(this)[WeatherListViewModel::class.java]
     }
 
     private var isDataSetWorld: Boolean = false

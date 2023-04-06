@@ -35,5 +35,6 @@
     <string name="button_search_map">Search</string>
     <string name="marker_start">Start</string>
     <string name="search_address">Введите адрес</string>
+    <string name="moscow">Moscow</string>
 
 </resources>

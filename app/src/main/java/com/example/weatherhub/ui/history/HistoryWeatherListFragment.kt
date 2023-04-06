@@ -8,8 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherhub.databinding.FragmentHistoryWeatherListBinding
-import com.example.weatherhub.viewmodel.AppState
-import com.example.weatherhub.viewmodel.HistoryViewModel
+import com.example.weatherhub.app.AppState
 import com.google.android.material.snackbar.Snackbar
 
 class HistoryWeatherListFragment : Fragment() {

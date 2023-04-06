@@ -1,4 +1,4 @@
-package com.example.weatherhub.viewmodel
+package com.example.weatherhub.ui.details
 
 import com.example.weatherhub.data.Weather
 
