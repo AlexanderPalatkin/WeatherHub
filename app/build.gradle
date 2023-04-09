@@ -31,10 +31,31 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
+    signingConfigs {
         release {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file("password.properties").newDataInputStream())
+            def password = properties.getProperty("password")
+            // def password = 123456
+
+            storeFile file("keystore.jks")
+            storePassword = password
+            keyAlias 'GBWeather'
+            keyPassword = password
+        }
+    }
+
+
+    buildTypes {
+        beta {
+            initWith debug
+        }
+
+        release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            multiDexEnabled true
         }
     }
     compileOptions {
@@ -43,6 +64,21 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    flavorDimensions 'version', 'age'
+    productFlavors {
+        free {
+            dimension 'version'
+        }
+        paid {
+            dimension 'version'
+        }
+        kids {
+            dimension 'age'
+        }
+        adult {
+            dimension 'age'
+        }
     }
 }
 

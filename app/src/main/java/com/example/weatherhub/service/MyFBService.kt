@@ -13,9 +13,9 @@ class MyFBService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         if (message.data.isNotEmpty()) {
             val title = message.data[KEY_TITLE]
-            val message = message.data[KEY_MESSAGE]
-            if (!title.isNullOrEmpty() && !message.isNullOrEmpty()) {
-                push(title, message)
+            val sendMessage = message.data[KEY_MESSAGE]
+            if (!title.isNullOrEmpty() && !sendMessage.isNullOrEmpty()) {
+                push(title, sendMessage)
             }
         }
     }
