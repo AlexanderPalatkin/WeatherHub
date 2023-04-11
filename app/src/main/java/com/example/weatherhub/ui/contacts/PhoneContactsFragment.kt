@@ -1,5 +1,6 @@
 package com.example.weatherhub.ui.contacts
 
+import android.Manifest.permission.READ_CONTACTS
 import android.app.AlertDialog
 import android.content.ContentResolver
 import android.content.pm.PackageManager
@@ -9,11 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.weatherhub.R
 import com.example.weatherhub.databinding.FragmentPhoneContactsBinding
-import com.example.weatherhub.utils.REQUEST_PERMISSION_CONTACTS_CODE
 
 
 class PhoneContactsFragment : Fragment() {
@@ -38,11 +39,11 @@ class PhoneContactsFragment : Fragment() {
 //       есть ли разрешение
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
-                android.Manifest.permission.READ_CONTACTS
+                READ_CONTACTS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             getContacts()
-        } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.READ_CONTACTS)) {
+        } else if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             // важно написать убедительную просьбу
             explain()
         } else {
@@ -50,32 +51,15 @@ class PhoneContactsFragment : Fragment() {
         }
     }
 
-    private fun mRequestPermission() {
-        @Suppress("DEPRECATION")
-        requestPermissions(
-            arrayOf(android.Manifest.permission.READ_CONTACTS),
-            REQUEST_PERMISSION_CONTACTS_CODE
-        )
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == REQUEST_PERMISSION_CONTACTS_CODE) {
-            if (grantResults.isNotEmpty()
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED
-            ) {
-                getContacts()
-            } else {
-                explain()
-            }
+    private val launcherReadContacts = registerForActivityResult(ActivityResultContracts.RequestPermission()){ result ->
+        if (result) {
+            getContacts()
         } else {
-            @Suppress("DEPRECATION")
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+            explain()
         }
+    }
+    private fun mRequestPermission() {
+       launcherReadContacts.launch(READ_CONTACTS)
     }
 
     private fun getContacts() {

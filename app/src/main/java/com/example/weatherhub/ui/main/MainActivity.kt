@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.weatherhub.R
 import com.example.weatherhub.ui.contacts.PhoneContactsFragment
 import com.example.weatherhub.ui.history.HistoryWeatherListFragment
@@ -36,25 +37,22 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_history -> {
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.container, HistoryWeatherListFragment.newInstance())
-                    .addToBackStack("").commit()
+                navigate(HistoryWeatherListFragment.newInstance())
             }
             R.id.work_with_content_provider -> {
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.container, PhoneContactsFragment.newInstance())
-                    .addToBackStack("").commit()
+                navigate(PhoneContactsFragment.newInstance())
             }
             R.id.menu_google_maps -> {
-                supportFragmentManager.apply {
-                    beginTransaction()
-                        .add(R.id.container, MapsFragment())
-                        .addToBackStack("")
-                        .commitAllowingStateLoss()
-                }
+                navigate(MapsFragment())
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun navigate(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.container, fragment)
+            .addToBackStack("").commit()
     }
 
     private fun saveNewTokenFBInLog() {
