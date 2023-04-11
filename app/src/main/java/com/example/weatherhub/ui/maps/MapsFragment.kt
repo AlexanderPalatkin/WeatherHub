@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.weatherhub.R
@@ -187,7 +188,6 @@ class MapsFragment : Fragment() {
         }
     }
 
-
     private fun activateMyLocation() {
         context?.let {
             if (ContextCompat.checkSelfPermission(
@@ -201,32 +201,16 @@ class MapsFragment : Fragment() {
         }
     }
 
-    @Suppress("DEPRECATION")
-    private fun mRequestPermission() {
-        requestPermissions(
-            arrayOf(ACCESS_FINE_LOCATION),
-            REQUEST_PERMISSION_LOCATION_CODE
-        )
+    private val launcherAccessFineLocation = registerForActivityResult(ActivityResultContracts.RequestPermission()){ result ->
+        if (result) {
+            activateMyLocation()
+        } else {
+            explain()
+        }
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == REQUEST_PERMISSION_LOCATION_CODE) {
-            if (grantResults.isNotEmpty()
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED
-            ) {
-                activateMyLocation()
-            } else {
-                explain()
-            }
-        } else {
-            @Suppress("DEPRECATION")
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        }
+    private fun mRequestPermission() {
+        launcherAccessFineLocation.launch(ACCESS_FINE_LOCATION)
     }
 
     private fun explain() {

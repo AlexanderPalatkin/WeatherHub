@@ -3,7 +3,6 @@ package com.example.weatherhub.service
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.example.weatherhub.R
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -13,9 +12,9 @@ class MyFBService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         if (message.data.isNotEmpty()) {
             val title = message.data[KEY_TITLE]
-            val message = message.data[KEY_MESSAGE]
-            if (!title.isNullOrEmpty() && !message.isNullOrEmpty()) {
-                push(title, message)
+            val sendMessage = message.data[KEY_MESSAGE]
+            if (!title.isNullOrEmpty() && !sendMessage.isNullOrEmpty()) {
+                push(title, sendMessage)
             }
         }
     }
@@ -43,15 +42,13 @@ class MyFBService : FirebaseMessagingService() {
             priority = NotificationManager.IMPORTANCE_HIGH
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelName = "Name $CHANNEL_ID_HIGH"
-            val channelDescription = "Description $CHANNEL_ID_HIGH"
-            val channelPriority = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(CHANNEL_ID_HIGH, channelName, channelPriority).apply {
-                description = channelDescription
-            }
-            notificationManager.createNotificationChannel(channel)
+        val channelName = "Name $CHANNEL_ID_HIGH"
+        val channelDescription = "Description $CHANNEL_ID_HIGH"
+        val channelPriority = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(CHANNEL_ID_HIGH, channelName, channelPriority).apply {
+            description = channelDescription
         }
+        notificationManager.createNotificationChannel(channel)
 
         notificationManager.notify(NOTIFICATION_ID_HIGH, notificationBuilderTest.build())
     }
